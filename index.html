@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FutureFinance Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="post" href="script.java">
+</head>
+<body>
+  <header>
+    <h1>Future Finance Blog</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+<a href="post-cashless-saving.html" class="post-link">
+  <div class="post">
+    <h2>5 Ways to Save Money in a Cashless Society</h2>
+    <p>Learn how to budget and track spending when you rarely use cash — digital wallets, AI finance apps, and smart investing tips.</p>
+  </div>
+</a>
+
+<a href="post-ai-tools.html" class="post-link">
+  <div class="post">
+    <h2>Top 3 AI Tools for Personal Finance</h2>
+    <p>Explore how tools like Cleo, YNAB, and ChatGPT can help you automate your savings and financial planning in 2025.</p>
+  </div>
+</a>
+  <footer>
+    <p>&copy; 2025 FutureFinance. All rights reserved.</p>
+  </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js"></script>
+<script>
+  const firebaseConfig = {
+    // paste your Firebase config here
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script src="script.js"></script>
+<div id="postsContainer"></div>
+
+<script>
+  const postsRef = firebase.database().ref("posts");
+
+  postsRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+    const container = document.getElementById("postsContainer");
+    container.innerHTML = "";
+    for (let id in data) {
+      const post = data[id];
+      container.innerHTML += `
+        <div class="post">
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+        </div>`;
+    }
+  });
+</script>
+
+</body>
+</html>
